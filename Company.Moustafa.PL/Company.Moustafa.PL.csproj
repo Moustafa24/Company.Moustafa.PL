@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Company.Moustafa.BLL\Company.Moustafa.BLL.csproj" />
-    <ProjectReference Include="..\Company.Moustafa.DAL\Company.Moustafa.DAL.csproj" />
   </ItemGroup>
 
 </Project>
