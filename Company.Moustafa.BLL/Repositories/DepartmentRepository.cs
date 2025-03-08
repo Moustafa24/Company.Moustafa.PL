@@ -9,18 +9,19 @@ using Company.Moustafa.DAL.Models;
 
 namespace Company.Moustafa.BLL.Repositories
 {
-    internal class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
+        private  readonly CompanyDbContext _Context;
 
-        private CompanyDbContext _Context;
-        public DepartmentRepository()
+        public DepartmentRepository(CompanyDbContext companyDbContext)
         {
-            _Context = new CompanyDbContext();
+            _Context = companyDbContext;
         }
 
         public IEnumerable<Department> GetAll()
         {
-            return _Context.Departments.ToList();    
+                return _Context.Departments.ToList();
+        
         }
 
         public Department? Get(int id)
