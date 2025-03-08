@@ -1,3 +1,8 @@
+using Company.Moustafa.BLL.Interfaces;
+using Company.Moustafa.BLL.Repositories;
+using Company.Moustafa.DAL.Data.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace Company.Moustafa.PL
 {
     public class Program
@@ -8,6 +13,14 @@ namespace Company.Moustafa.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IDepartmentRepository , DepartmentRepository>();
+            builder.Services.AddDbContext<CompanyDbContext>
+                (options=> {
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                
+                });
+
+
 
             var app = builder.Build();
 
