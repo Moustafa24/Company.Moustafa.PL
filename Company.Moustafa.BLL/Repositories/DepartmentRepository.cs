@@ -38,13 +38,13 @@ namespace Company.Moustafa.BLL.Repositories
 
         public int Delete(Department model)
         {
-            _Context.Departments.Update(model);
+            _Context.Departments.Remove(model);
             return _Context.SaveChanges();
         }
 
         public int Update(Department model)
         {
-            _Context.Departments.Remove(model);
+            _Context.Departments.Update(model);
             return _Context.SaveChanges();
         }
     }
