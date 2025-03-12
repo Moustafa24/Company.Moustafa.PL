@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +9,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Company.Moustafa.DAL.Data.Configrations
 {
-    public class EmployeeConfigration : IEntityTypeConfiguration<Employee>
+    public class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
     {
-       
-        public void Configure(EntityTypeBuilder<Employee> builder)
+        public void Configure(EntityTypeBuilder<Employee> E)
         {
-            builder.Property(E=>E.Salary).HasColumnType("decimal(18,2)");
+            E.Property(e => e.Salary).HasColumnType("decimal(18,2)");
         }
     }
 }

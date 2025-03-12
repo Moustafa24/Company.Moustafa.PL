@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Company.Moustafa.DAL.Data.Configrations
 {
-    public class DepartmentConfigrations : IEntityTypeConfiguration<Department>
+
+    public class DepartmentConfigurations : IEntityTypeConfiguration<Department>
     {
-        public void Configure(EntityTypeBuilder<Department> builder)
+        public void Configure(EntityTypeBuilder<Department> D)
         {
-            builder.Property(D => D.Id).UseIdentityColumn(10,10);
+            D.Property(d => d.Id).UseIdentityColumn(10, 10);
         }
     }
 }

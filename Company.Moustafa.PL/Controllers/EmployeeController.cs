@@ -2,82 +2,68 @@
 using Company.Moustafa.DAL.Models;
 using Company.Moustafa.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Company.Moustafa.PL.Controllers
 {
+
     public class EmployeeController : Controller
     {
-        // MVC Controller
-
         private readonly IEmployeeRepository _employeeRepository;
 
-        // ASK CLR Create Object From DepartmentRepository
         public EmployeeController(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
-
-        [HttpGet] // GET: /Department/Index
         public IActionResult Index()
         {
             var employees = _employeeRepository.GetAll();
-
-
             return View(employees);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateEmployeeDto model)
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
+                var employee = new Employee
                 {
                     Name = model.Name,
-                    Address = model.Address,
                     Age = model.Age,
-                    CreateAt = model.CreateAt,
-                    HiringDate = model.HiringDate,
                     Email = model.Email,
-                    IsActive = model.IsActive,
-                    IsDeleted = model.IsDeleted,
+                    Address = model.Address,
                     Phone = model.Phone,
                     Salary = model.Salary,
-
-
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    HiringDate = model.HiringDate
                 };
-
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                    return RedirectToAction("Index");
             }
-            return View();
+
+            return View(model);
         }
 
-        [HttpGet]
         public IActionResult Details(int? id, string viewName = "Details")
         {
-            if (id is null) return BadRequest("Invalid Id"); // 400
-
+            if (id is null)
+                return BadRequest("Invalid Id");
             var employee = _employeeRepository.Get(id.Value);
-            if (employee is null) return NotFound(new { StatusCode = 404, message = $"Employee With Id : {id} is not found" });
-
+            if (employee is null)
+                return NotFound(new { statusCode = 404, message = $"Employee with id {id} Not Found" });
             return View(viewName, employee);
         }
 
-        [HttpGet]
         public IActionResult Edit(int? id)
         {
-
-
             return Details(id, "Edit");
         }
 
@@ -87,21 +73,17 @@ namespace Company.Moustafa.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (id != employee.Id) return BadRequest(); // 400
-
+                if (id != employee.Id)
+                    return BadRequest("Invalid Id");
                 var count = _employeeRepository.Update(employee);
-                if (count > 0) return RedirectToAction(nameof(Index));
+                if (count > 0)
+                    return RedirectToAction("Index");
             }
-
             return View(employee);
         }
 
-
-
-        [HttpGet]
         public IActionResult Delete(int? id)
         {
-
             return Details(id, "Delete");
         }
 
@@ -109,17 +91,12 @@ namespace Company.Moustafa.PL.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete([FromRoute] int id, Employee employee)
         {
-            if (ModelState.IsValid)
-            {
-                if (id != employee.Id) return BadRequest(); // 400
-
-                var count = _employeeRepository.Delete(employee);
-                if (count > 0) return RedirectToAction(nameof(Index));
-            }
-
+            if (id != employee.Id)
+                return BadRequest("Invalid Id");
+            var count = _employeeRepository.Delete(employee);
+            if (count > 0)
+                return RedirectToAction("Index");
             return View(employee);
         }
-
-
     }
 }

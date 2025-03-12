@@ -9,7 +9,7 @@ using Company.Moustafa.DAL.Models;
 
 namespace Company.Moustafa.BLL.Repositories
 {
-    public class GenaricRepository<T> : IGenaricRepository<T> where T : BaseEntity
+    public class GenaricRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly CompanyDbContext _Context;
         public GenaricRepository(CompanyDbContext Context)
@@ -30,6 +30,7 @@ namespace Company.Moustafa.BLL.Repositories
         public int Add(T model)
         {
            _Context.Set<T>().Add(model);
+
             return _Context.SaveChanges();
         }
 

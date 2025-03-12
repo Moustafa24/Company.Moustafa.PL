@@ -1,3 +1,4 @@
+using Company.BLL.Interfaces;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
@@ -12,15 +13,15 @@ namespace Company.Moustafa.PL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IDepartmentRepository , DepartmentRepository>();
-            builder.Services.AddDbContext<CompanyDbContext>
-                (options=> {
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                
-                });
+            builder.Services.AddControllersWithViews(); // Register Built-in MVC services
 
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Register DI for DepartmentRepository
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); // Register DI for EmployeeRepository
 
+            builder.Services.AddDbContext<CompanyDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            }); // Register DI for CompanyDbContext
 
             var app = builder.Build();
 
@@ -36,8 +37,6 @@ namespace Company.Moustafa.PL
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

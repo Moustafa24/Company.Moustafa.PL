@@ -1,77 +1,58 @@
 ﻿@model IEnumerable<Employee>
 
 @{
-    ViewData["Title"] = "Index";
-
+    ViewData["Title"] = "All Employees";
 }
 
-<h1>All Employee</h1>
-</<br />
-</<br />
 
-<a asp-action="Create"  class="btn btn-primary">Create Employee</a>
+<h1 class="text-center my-4">All Employees</h1>
+<div class="my-3">
+    <a class="btn btn-primary" asp-action="Create">Create  Employee</a>
+</div>
 
-
-<br />
-<br />
-
-@if (Model.Count() > 0)
+@if(Model.Count() > 0) 
 {
-    <table class="table table-hover table-striped">
-        <thead>
+    <table class="table table-striped table-bordered ">
+        <thead >
             <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Salary</th>
-                <th>IsActive</th>
-                <th>IsDeleted</th>
-                <th>@Html.DisplayNameFor(E=>E.HiringDate)</th>
-                <th>@Html.DisplayNameFor(E=>E.CreateAt)</th>
+                <th>@Html.DisplayNameFor(E => E.Name)</th>
+                <th>@Html.DisplayNameFor(E => E.Age)</th>
+                <th>@Html.DisplayNameFor(E => E.Email)</th>
+                <th>@Html.DisplayNameFor(E => E.Address)</th>
+                <th>@Html.DisplayNameFor(E => E.Phone)</th>
+                <th>@Html.DisplayNameFor(E => E.Salary)</th>
+                <th>@Html.DisplayNameFor(E => E.IsActive)</th>
+                <th>@Html.DisplayNameFor(E => E.IsDeleted)</th>
+                <th>@Html.DisplayNameFor(E => E.HiringDate)</th>
+                <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach(var employee in Model)
             {
                 <tr>
-                    <td>@item.Name </td>
-                    <td>@item.Age</td>
-                    <td>@item.Email</td>
-                    <td>@item.Address</td>
-                    <td>@item.Phone</td>
-                    <td>@item.Salary</td>
-                    <td>@item.IsActive</td>
-                    <td>@item.IsDeleted</td>
-                    <td>@item.HiringDate</td>
-                    <td>@item.CreateAt</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning">Details</a>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Update</a>
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-danger">Delete</a>
-                    </td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.Address</td>
+                    <td>@employee.Phone</td>
+                    <td>@Html.DisplayFor(M => employee.Salary)</td>
+                    <td>@employee.IsActive</td>
+                    <td>@employee.IsDeleted</td>
+                    <td>@employee.HiringDate</td>
+                    <td>@employee.CreateAt</td>
+                    <partial name="_ButtonsPartialView" model="@employee.Id" />
                 </tr>
-
             }
         </tbody>
-
     </table>
 }
-else
-{ 
-    <div class="mt-4 alert-success"> 
-
-        <h4>
-            There are no Employee :(
-        </h4>
-
+else 
+{
+    <div class="mt-4 alert alert-warning">
+        <h3>There is NO Employees</h3>
     </div>
 }
