@@ -17,13 +17,29 @@ namespace Company.Moustafa.PL.Controllers
         }
         public IActionResult Index()
         {
+            //// Dictionary : 3 Property 
+            //// 1.ViewData : Transfare Extra Information From Controller (Action) To View
+
+            //ViewData["Message"] = "Hello From ViewData";
+
+
+
+
+            //// 2.ViewBag  : Transfare Extra Information From Controller (Action) To View
+            //ViewBag.Message = "Hello From ViewBag"; 
+
+
+            // 3.TimpData : Transfare Extra Information From Controller (Action) To View
+
             var employees = _employeeRepository.GetAll();
             return View(employees);
         }
 
         public IActionResult Create()
         {
-            return View();
+            var employees = _employeeRepository.GetAll();
+            
+            return View(employees);
         }
 
         [HttpPost]
@@ -32,6 +48,7 @@ namespace Company.Moustafa.PL.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var employee = new Employee
                 {
                     Name = model.Name,
@@ -42,16 +59,24 @@ namespace Company.Moustafa.PL.Controllers
                     Salary = model.Salary,
                     IsActive = model.IsActive,
                     IsDeleted = model.IsDeleted,
-                    HiringDate = model.HiringDate
+                    HiringDate = model.HiringDate,
+                    
                 };
+
+                
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
+                {
+                    TempData["Message"] = "Employee Added Successfully!";
                     return RedirectToAction("Index");
+                }
             }
 
             return View(model);
         }
 
+
+        [HttpGet]
         public IActionResult Details(int? id, string viewName = "Details")
         {
             if (id is null)
