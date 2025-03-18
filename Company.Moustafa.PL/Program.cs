@@ -2,6 +2,8 @@ using Company.BLL.Interfaces;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
+using Company.Moustafa.PL.Mapping;
+using Company.Moustafa.PL.Servies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Moustafa.PL
@@ -22,6 +24,17 @@ namespace Company.Moustafa.PL
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             }); // Register DI for CompanyDbContext
+
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+             //builder.Services.AddScoped(); // create object life time per request
+            //builder.Services.AddTransient(); // create object life time per operation
+            //builder.Services.AddSingleton(); // create object life time per App
+
+            builder.Services.AddScoped<IScopedService, ScopedService>(); //per request
+            builder.Services.AddTransient<ITransientService, TransientService>(); //per operation
+            builder.Services.AddSingleton<ISingletonService, SingletonService>();//per App
+
 
             var app = builder.Build();
 

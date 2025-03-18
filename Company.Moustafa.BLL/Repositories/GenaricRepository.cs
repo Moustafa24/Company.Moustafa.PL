@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.DAL.Data.Context;
 using Company.Moustafa.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Company.Moustafa.BLL.Repositories
 {
@@ -19,12 +20,20 @@ namespace Company.Moustafa.BLL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _Context.Set<T>();
+            if(typeof(T)==typeof(Employee))
+            {
+                return (IEnumerable<T>)_Context.Employees.Include(E => E.Department).ToList(); 
+            }
+            return _Context.Set<T>().ToList();
         }
 
         public T? Get(int id)
         {
-           return _Context.Set<T>().Find(id);
+            if (typeof(T) == typeof(Employee))
+            {
+                return _Context.Employees.Include(E => E.Department).FirstOrDefault(E => E.Id == id) as T;
+            }
+            return _Context.Set<T>().Find(id);
         }
 
         public int Add(T model)

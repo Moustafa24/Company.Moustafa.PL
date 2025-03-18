@@ -6,8 +6,9 @@ namespace Company.Moustafa.PL.Dtos
     public class CreateEmployeeDto
     {
         [Required(ErrorMessage ="Name is Required !")]
-        public string Name { get; set; }
+        public string EmpName { get; set; }
         [Range(22,60 , ErrorMessage ="Age must be between 22 And 60 ")]
+        [Required]
         public int? Age { get; set; }
         [DataType(DataType.EmailAddress , ErrorMessage ="Email is not valid !!")  ]
         public string Email { get; set; }
@@ -24,5 +25,8 @@ namespace Company.Moustafa.PL.Dtos
         public DateTime HiringDate { get; set; }
         [DisplayName("Date of Create")]
         public DateTime CreateAt { get; set; }
+
+        public int ? DepartmentId { get; set; }
     }
+
 }

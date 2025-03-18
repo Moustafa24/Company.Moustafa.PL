@@ -19,7 +19,10 @@
 </div>
  *@
 
-@if (string.IsNullOrEmpty(TempData["Message"] as string))
+
+
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
 {
 
     <div class="m-3 alert alert-info">
@@ -30,6 +33,21 @@
 
     </div>
  }
+
+
+<form>
+    <div class="container m-4">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <input placeholder="Search By Name" name="SearchInput" class="form-control" />
+            </div>
+            <div class="col-6">
+                <input type="submit" class="btn btn-success" value="Search" />
+            </div>
+        </div>
+    </div>
+</form>
+
 
 <div class="my-3">
     <a class="btn btn-primary" asp-action="Create">Create  Employee</a>
@@ -50,6 +68,7 @@
                 <th>@Html.DisplayNameFor(E => E.IsDeleted)</th>
                 <th>@Html.DisplayNameFor(E => E.HiringDate)</th>
                 <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
+                <th>@Html.DisplayNameFor(E => E.Department)</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -69,6 +88,7 @@
                     <td>@employee.IsDeleted</td>
                     <td>@employee.HiringDate</td>
                     <td>@employee.CreateAt</td>
+                    <td>@employee.Department?.Name</td>
                     <partial name="_ButtonsPartialView" model="@employee.Id" />
                 </tr>
             }
