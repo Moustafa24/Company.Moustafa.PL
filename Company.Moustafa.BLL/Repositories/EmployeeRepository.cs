@@ -12,17 +12,15 @@ namespace Company.Moustafa.BLL.Repositories
 {
     public class EmployeeRepository :GenaricRepository<Employee>, IEmployeeRepository
     {
-       private readonly CompanyDbContext _Cotext;
+
+        private readonly CompanyDbContext _context;
+
         public EmployeeRepository(CompanyDbContext context) : base(context)
         {
-            _Cotext = context;
+            _context = context;
         }
 
-       
+        public async Task<List<Employee>> GetByNameAsync(string name) => await _context.Employees.Include(E => E.Department).Where(E => E.Name.ToLower().Contains(name.ToLower())).ToListAsync();
 
-        public List<Employee> GetByName(string name)
-        {
-           return _Cotext.Employees.Include(E=>E.Department).Where(E=>E.Name.ToLower().Contains(name.ToLower())).ToList(); 
-        }
     }
 }

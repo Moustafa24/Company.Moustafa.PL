@@ -20,4 +20,9 @@
     <ProjectReference Include="..\Company.Moustafa.BLL\Company.Moustafa.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\file\Image\" />
+    <Folder Include="wwwroot\file\Videos\" />
+  </ItemGroup>
+
 </Project>

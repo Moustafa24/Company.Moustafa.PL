@@ -1,16 +1,17 @@
-﻿@using Company.BLL.Interfaces
-@model Employee
-@inject IDepartmentRepository _departmentRepo
+﻿
+@model CreateEmployeeDto
+
+@inject IDepartmentRepository _departmentRepository
+
 @{
-    
-    var Departments = new SelectList (_departmentRepo.GetAll() , "Id", "Name");
+    // var Departments = new SelectList(ViewBag.Departments as List<Department>, "Id", "Name");
+    var Departments = new SelectList(await _departmentRepository.GetAllAsync(), "Id", "Name");
 }
 
-
 <div class="form-group">
-    <label class="col-form-label" asp-for="Name"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <label class="col-form-label" asp-for="EmpName"></label>
+    <input asp-for="EmpName" class="form-control" />
+    <span asp-validation-for="EmpName" class="text-danger"></span>
 </div>
 
 <div class="form-group">
@@ -67,10 +68,12 @@
 
 <div class="form-group">
     <label class="col-form-label" asp-for="DepartmentId"></label>
-    <select  asp-for="DepartmentId" asp-items="Departments">
-    
+    <select asp-for="DepartmentId" asp-items="Departments" class="form-control">
+        <option value="">Select Department</option>
     </select>
 </div>
 
-
-
+<div class="form-group">
+    <label class="col-form-label" asp-for="Image"></label>
+    <input asp-for="Image" type="file" class="form-control" />
+</div>

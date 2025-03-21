@@ -1,4 +1,5 @@
 using Company.BLL.Interfaces;
+using Company.Moustafa.BLL;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
@@ -18,22 +19,27 @@ namespace Company.Moustafa.PL
             builder.Services.AddControllersWithViews(); // Register Built-in MVC services
 
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Register DI for DepartmentRepository
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); // Register DI for EmployeeRepository
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); // Register DI for EmployeeRepository
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); // Register DI for UnitOfWork
 
             builder.Services.AddDbContext<CompanyDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             }); // Register DI for CompanyDbContext
 
-            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));
-            builder.Services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
-             //builder.Services.AddScoped(); // create object life time per request
-            //builder.Services.AddTransient(); // create object life time per operation
-            //builder.Services.AddSingleton(); // create object life time per App
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile)); // Register DI for AutoMapper
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile())); // Register DI for AutoMapper
+            builder.Services.AddAutoMapper(M => M.AddProfile(new DepartmentProfile())); // Register DI for AutoMapper
 
-            builder.Services.AddScoped<IScopedService, ScopedService>(); //per request
-            builder.Services.AddTransient<ITransientService, TransientService>(); //per operation
-            builder.Services.AddSingleton<ISingletonService, SingletonService>();//per App
+
+            //builder.Services.AddScoped();    // Create Object Life Time Per Request - Unreachable Object
+            //builder.Services.AddTransient(); // Create Object Life Time Per Operation
+            //builder.Services.AddSingleton(); // Create Object Life Time Per Application
+
+            builder.Services.AddScoped<IScopedService, ScopedService>(); // Per Request
+            builder.Services.AddTransient<ITransientService, TransientService>(); // Per Operation
+            builder.Services.AddSingleton<ISingletonService, SingletonService>(); // Per Application
 
 
             var app = builder.Build();

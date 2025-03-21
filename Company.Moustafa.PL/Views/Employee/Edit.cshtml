@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model CreateEmployeeDto
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,10 +6,10 @@
 
 <h1 class="text-center my-4">Edit Employee</h1>
 
-<div class="container">
-    <form asp-action="Edit">
+<div class="container" >
+    <form asp-action="Edit" enctype="multipart/form-data">
         <partial name="EmployeePartialView/_CreateEditPartialView" />
-
+        <input asp-for="ImageName" hidden/>
 
         <div class="d-flex justify-content-start gap-3 my-4">
             <input type="submit" value="Submit" class="btn btn-primary" />

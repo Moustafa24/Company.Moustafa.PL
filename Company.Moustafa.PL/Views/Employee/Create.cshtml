@@ -1,17 +1,15 @@
 ﻿@model CreateEmployeeDto
-
-
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1 class="text-center my-4">create employee</h1>
+<h1 class="text-center my-4">Create Employee</h1>
 <div class="container">
-    <form asp-action="create">
+    <form asp-action="Create" enctype="multipart/form-data">
 
         <partial name="EmployeePartialView/_CreateEditPartialView" />
-        
-        <div class="d-flex justify-content-start gap-3">
+
+        <div class="d-flex justify-content-start gap-3 my-4">
             <input type="submit" value="Submit" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-light">Back to List</a>
         </div>
@@ -19,6 +17,6 @@
 </div>
 
 
-@section validationscriptsection {
-    <partial name="_validationscriptspartial" />
+@section ValidationScriptSection {
+    <partial name="_ValidationScriptsPartial" />
 }

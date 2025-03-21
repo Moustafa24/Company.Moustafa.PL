@@ -9,10 +9,10 @@ namespace Company.Moustafa.PL.Mapping
 
         public EmployeeProfile()
         {
-            CreateMap<CreateEmployeeDto, Employee>().ForMember(
-                d=>d.Name,
-                o=>o.MapFrom(s=>s.EmpName));
-            CreateMap<Employee, CreateEmployeeDto>();
+            CreateMap<CreateEmployeeDto, Employee>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.EmpName));
+            CreateMap<Employee, CreateEmployeeDto>()
+                .ForMember(d => d.EmpName, o => o.MapFrom(s => s.Name));
 
         }
     }

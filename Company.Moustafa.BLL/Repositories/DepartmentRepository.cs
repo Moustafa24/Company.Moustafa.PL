@@ -10,43 +10,14 @@ using Company.Moustafa.DAL.Models;
 
 namespace Company.Moustafa.BLL.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : GenaricRepository<Department>, IDepartmentRepository
     {
-        private  readonly CompanyDbContext _Context;
 
-        public DepartmentRepository(CompanyDbContext companyDbContext)
+        public DepartmentRepository(CompanyDbContext context) : base(context)
         {
-            _Context = companyDbContext;
-        }
-
-        public IEnumerable<Department> GetAll()
-        {
-                return _Context.Departments.ToList();
-        
-        }
-
-        public Department? Get(int id)
-        {
-            return _Context.Departments.Find(id);
-        }
-
-        public int Add(Department model)
-        {
-            _Context.Departments.Add(model);
-            return _Context.SaveChanges();
 
         }
 
-        public int Delete(Department model)
-        {
-            _Context.Departments.Remove(model);
-            return _Context.SaveChanges();
-        }
 
-        public int Update(Department model)
-        {
-            _Context.Departments.Update(model);
-            return _Context.SaveChanges();
-        }
     }
 }
