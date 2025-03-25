@@ -3,6 +3,7 @@ using Company.Moustafa.BLL;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
+using Company.Moustafa.DAL.Models;
 using Company.Moustafa.PL.Controllers;
 using Company.Moustafa.PL.Mapping;
 using Company.Moustafa.PL.Servies;
@@ -45,6 +46,13 @@ namespace Company.Moustafa.PL
 
             builder.Services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<CompanyDbContext>();
+            builder.Services.ConfigureApplicationCookie(config =>
+            {
+               config.LoginPath = "/Account/SignIn";
+
+
+            }
+            );
 
             var app = builder.Build();
 
@@ -60,6 +68,9 @@ namespace Company.Moustafa.PL
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

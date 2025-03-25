@@ -4,11 +4,14 @@ using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Models;
 using Company.Moustafa.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Moustafa.PL.Controllers
 {
     // MVC Controller
+    [Authorize]
+
     public class DepartmentController : Controller
     {
         //private readonly IDepartmentRepository _departmentRepository;

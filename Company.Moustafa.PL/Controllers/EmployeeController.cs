@@ -5,12 +5,14 @@ using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Models;
 using Company.Moustafa.PL.Dtos;
 using Company.Moustafa.PL.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Company.Moustafa.PL.Controllers
 {
+    [Authorize]
 
     public class EmployeeController : Controller
     {
