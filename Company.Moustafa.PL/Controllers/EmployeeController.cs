@@ -64,7 +64,7 @@ namespace Company.Moustafa.PL.Controllers
             if (ModelState.IsValid)
             {
                 if (model.Image is not null)
-                    model.ImageName = DocumentSettings.UploadFile(model.Image, "images");
+                    model.ImageName = DocumentSettings.UploadFile(model.Image, "Image");
 
                 var employee = _mapper.Map<Employee>(model);
                 await _unitOfWork.EmployeeRepository.AddAsync(employee);
@@ -73,7 +73,7 @@ namespace Company.Moustafa.PL.Controllers
                 if (count > 0)
                 {
 
-                    TempData["Message"] = "Employee Added Successfully!";
+                    TempData["Message"] = $"Employee{employee.Name} Added Successfully!";
 
                     return RedirectToAction("Index");
                 }
@@ -111,10 +111,10 @@ namespace Company.Moustafa.PL.Controllers
                     return BadRequest("Invalid Id");
 
                 if (model.ImageName is not null && model.Image is not null)
-                    DocumentSettings.DeleteFile(model.ImageName, "images");
+                    DocumentSettings.DeleteFile(model.ImageName, "Image");
 
                 if (model.Image is not null)
-                    model.ImageName = DocumentSettings.UploadFile(model.Image, "images");
+                    model.ImageName = DocumentSettings.UploadFile(model.Image, "Image");
 
 
                 var employee = _mapper.Map<Employee>(model);
@@ -147,7 +147,7 @@ namespace Company.Moustafa.PL.Controllers
             if (count > 0)
             {
                 if (model.ImageName is not null)
-                    DocumentSettings.DeleteFile(model.ImageName, "images");
+                    DocumentSettings.DeleteFile(model.ImageName, "Image");
 
                 return RedirectToAction("Index");
             }

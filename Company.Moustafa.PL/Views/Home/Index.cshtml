@@ -1,8 +1,238 @@
-﻿@{
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company.PL</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* اسم الشركة */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* القائمة */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+            .nav-links li {
+                display: inline;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #ffffff;
+                font-weight: 500;
+                padding: 8px 15px;
+                border-radius: 5px;
+                transition: background 0.3s ease, color 0.3s ease;
+            }
+
+                .nav-links a:hover {
+                    background: #ffcc00;
+                    color: #222;
+                }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Company.<strong>PL</strong></div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Departments</a></li>
+            <li><a href="#">Employees</a></li>
+        </ul>
+    </nav>
+
+</body>
+</html>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* اسم الشركة */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* القائمة */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+            .nav-links li {
+                display: inline;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #ffffff;
+                font-weight: 500;
+                padding: 8px 15px;
+                border-radius: 5px;
+                transition: background 0.3s ease, color 0.3s ease;
+            }
+
+                .nav-links a:hover {
+                    background: #ffcc00;
+                    color: #222;
+                }
+
+        /* الكارد الرئيسي */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 100px;
+        }
+
+            /* تأثير عند تمرير الماوس */
+            .container:hover {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        /* زرار أنيق */
+        .btn {
+            display: inline-block;
+            background: #ffcc00;
+            color: #222;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+            .btn:hover {
+                background: #ffaa00;
+                transform: translateY(-3px);
+            }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Company.<strong>PL</strong></div>
+        <ul class="nav-links">
+            <li><a asp-controller ="Home" asp-action="Index" > Home</a></li>
+            <li><a asp-controller="Home" asp-action="Privacy"> Privacy</a></li>
+            <li><a asp-controller="Department" asp-action="Index"> Departments</a></li>
+            <li><a asp-controller="Employee" asp-action="Index"> Employees</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about building Web apps with ASP.NET Core.</p>
+        <a href="https://learn.microsoft.com/aspnet/core" class="btn">Get Started</a>
+    </div>
+
+</body>
+</html>

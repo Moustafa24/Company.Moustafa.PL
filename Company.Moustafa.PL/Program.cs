@@ -3,8 +3,10 @@ using Company.Moustafa.BLL;
 using Company.Moustafa.BLL.Interfaces;
 using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
+using Company.Moustafa.PL.Controllers;
 using Company.Moustafa.PL.Mapping;
 using Company.Moustafa.PL.Servies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Moustafa.PL
@@ -41,6 +43,8 @@ namespace Company.Moustafa.PL
             builder.Services.AddTransient<ITransientService, TransientService>(); // Per Operation
             builder.Services.AddSingleton<ISingletonService, SingletonService>(); // Per Application
 
+            builder.Services.AddIdentity<AppUser,IdentityRole>()
+                .AddEntityFrameworkStores<CompanyDbContext>();
 
             var app = builder.Build();
 

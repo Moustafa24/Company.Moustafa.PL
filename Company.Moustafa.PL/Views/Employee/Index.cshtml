@@ -2,106 +2,229 @@
 
 @{
     ViewData["Title"] = "All Employees";
-    // // ViewData["Message"];
-    // string? ViewDataMessage = ViewData["Message"] as string;
-    // string? ViewBagMessage = ViewBag.Message;
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-<h1 class="text-center my-4">All Employees</h1>
+        body {
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
 
-@* <div class="m-3 alert-danger" >
-    <p> @ViewData["Message"]<p/>
-</div> *@
-@* 
-<div class="m-3 alert-danger">
-    <p> @ViewBag.Message<p />
-</div>
- *@
+        /* عنوان الصفحة */
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.6);
+        }
 
+        /* زر إنشاء موظف جديد */
+        .btn-container {
+            margin-bottom: 20px;
+        }
 
+        .btn {
+            background: #ffcc00;
+            color: #222;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+        }
 
-
-@if (!string.IsNullOrEmpty(TempData["Message"] as string))
-{
-
-    <div class="m-3 alert alert-info">
-
-        <p>
-            @TempData["Message"]
-        </p>
-
-    </div>
- }
-
-
-<form>
-    <div class="container m-4">
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <input placeholder="Search By Name" name="SearchInput" class="form-control" />
-            </div>
-            <div class="col-6">
-                <input type="submit" class="btn btn-success" value="Search" />
-            </div>
-        </div>
-    </div>
-</form>
-
-
-<div class="my-3">
-    <a class="btn btn-primary" asp-action="Create">Create  Employee</a>
-</div>
-
-@if(Model.Count() > 0) 
-{
-    <table class="table table-striped table-bordered ">
-        <thead >
-            <tr>
-                <th>Image</th>
-                <th>@Html.DisplayNameFor(E => E.Name)</th>
-                <th>@Html.DisplayNameFor(E => E.Age)</th>
-                <th>@Html.DisplayNameFor(E => E.Email)</th>
-                <th>@Html.DisplayNameFor(E => E.Address)</th>
-                <th>@Html.DisplayNameFor(E => E.Phone)</th>
-                <th>@Html.DisplayNameFor(E => E.Salary)</th>
-                <th>@Html.DisplayNameFor(E => E.IsActive)</th>
-                <th>@Html.DisplayNameFor(E => E.IsDeleted)</th>
-                <th>@Html.DisplayNameFor(E => E.HiringDate)</th>
-                <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
-                <th>@Html.DisplayNameFor(E => E.Department)</th>
-                <th>Details</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var employee in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="~/file/Image/@employee.ImageName"  class="img-fluid rounded-circle"></img>
-                    </td>
-                    <td>@employee.Name</td>
-                    <td>@employee.Age</td>
-                    <td>@employee.Email</td>
-                    <td>@employee.Address</td>
-                    <td>@employee.Phone</td>
-                    <td>@Html.DisplayFor(M => employee.Salary)</td>
-                    <td>@employee.IsActive</td>
-                    <td>@employee.IsDeleted</td>
-                    <td>@employee.HiringDate</td>
-                    <td>@employee.CreateAt</td>
-                    <td>@employee.Department?.Name</td>
-                    <partial name="_ButtonsPartialView" model="@employee.Id" />
-                </tr>
+            .btn:hover {
+                background: #ffaa00;
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(255, 170, 0, 0.6);
             }
-        </tbody>
-    </table>
-}
-else 
-{
-    <div class="mt-4 alert alert-warning">
-        <h3>There is NO Employees</h3>
+
+        /* تصميم الجدول */
+        .table-container {
+            width: 95%;
+            margin: auto;
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        th {
+            background: rgba(255, 204, 0, 0.9);
+            color: #222;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.3);
+            transition: background 0.3s ease;
+        }
+
+        /* صور الموظفين */
+        .employee-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffcc00;
+        }
+
+        /* رسالة عدم وجود بيانات */
+        .alert {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* مربع البحث */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+            .search-container input {
+                width: 300px;
+                padding: 10px;
+                border-radius: 25px;
+                border: none;
+                outline: none;
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .search-container .search-btn {
+                background: #ffcc00;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: bold;
+                margin-left: 10px;
+                transition: 0.3s;
+            }
+
+                .search-container .search-btn:hover {
+                    background: #ffaa00;
+                    transform: translateY(-2px);
+                }
+
+    </style>
+</head>
+<body>
+
+    <h1>All Employees</h1>
+
+    <div class="search-container">
+        <input placeholder="Search By Name" name="SearchInput">
+        <button class="search-btn">Search</button>
     </div>
-}
+
+    <div class="btn-container">
+        <a class="btn" asp-action="Create">Create Employee</a>
+    </div>
+
+    @if (Model.Count() > 0)
+    {
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>@Html.DisplayNameFor(E => E.Name)</th>
+                        <th>@Html.DisplayNameFor(E => E.Age)</th>
+                        <th>@Html.DisplayNameFor(E => E.Email)</th>
+                        <th>@Html.DisplayNameFor(E => E.Address)</th>
+                        <th>@Html.DisplayNameFor(E => E.Phone)</th>
+                        <th>@Html.DisplayNameFor(E => E.Salary)</th>
+                        <th>@Html.DisplayNameFor(E => E.IsActive)</th>
+                        <th>@Html.DisplayNameFor(E => E.IsDeleted)</th>
+                        <th>@Html.DisplayNameFor(E => E.HiringDate)</th>
+                        <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
+                        <th>@Html.DisplayNameFor(E => E.Department)</th>
+                        <th>Details</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/file/Image/@employee.ImageName" class="employee-img">
+                            </td>
+                            <td>@employee.Name</td>
+                            <td>@employee.Age</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.Address</td>
+                            <td>@employee.Phone</td>
+                            <td>@Html.DisplayFor(M => employee.Salary)</td>
+                            <td>@employee.IsActive</td>
+                            <td>@employee.IsDeleted</td>
+                            <td>@employee.HiringDate</td>
+                            <td>@employee.CreateAt</td>
+                            <td>@employee.Department?.Name</td>
+                            <partial name="_ButtonsPartialView" model="@employee.Id" />
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert">
+            <h3>There are NO Employees</h3>
+        </div>
+    }
+
+</body>
+</html>
