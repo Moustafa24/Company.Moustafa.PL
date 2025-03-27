@@ -1,0 +1,18 @@
+﻿@model UserToReternDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="text-center my-4">Delete Employee</h1>
+
+<div class="container">
+    <form asp-action="Delete">
+        <partial name="EmployeePartialView/_DetailsDeleteEmployeePartialView" />
+
+        <div class="d-flex justify-content-start gap-3">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>

@@ -213,7 +213,7 @@
                             <td>@employee.HiringDate</td>
                             <td>@employee.CreateAt</td>
                             <td>@employee.Department?.Name</td>
-                            <partial name="_ButtonsPartialView" model="@employee.Id" />
+                            <partial name="_ButtonsPartialView" model="@employee.Id.ToString()" />
                         </tr>
                     }
                 </tbody>
