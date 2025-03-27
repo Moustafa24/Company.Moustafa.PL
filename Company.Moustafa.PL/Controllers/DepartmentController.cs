@@ -8,10 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Moustafa.PL.Controllers
-{
-    // MVC Controller
+{// MVC Controller
     [Authorize]
-
     public class DepartmentController : Controller
     {
         //private readonly IDepartmentRepository _departmentRepository;
