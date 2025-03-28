@@ -34,6 +34,8 @@ namespace Company.Moustafa.PL.Controllers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
+
         public async Task<IActionResult> Index(string? SearchInput)
         {
             IEnumerable<Employee> employees;
@@ -42,6 +44,8 @@ namespace Company.Moustafa.PL.Controllers
                 employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
             else
                 employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
+           
+            #region Commit
             //// Dictionary : 3 Properties
             //// 1.ViewData : Transfer Data from Controller (Action) to View
             //ViewData["Message"] = "Hello From ViewData!";
@@ -49,9 +53,20 @@ namespace Company.Moustafa.PL.Controllers
             //// 2.ViewBag  : Transfer Data from Controller (Action) to View
             //ViewBag.Message = new { Message = "Hello From ViewBag!" };
 
-            // 3.TempData 
+            // 3.TempData  
+            #endregion
 
             return View(employees);
+        }
+
+
+        public async Task<IActionResult> Search(string? SearchInput)
+        {
+           
+              var  employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
+           
+
+            return View("EmployeePartialView/EmployeeTablePartialView", employees);
         }
 
         public IActionResult Create()
