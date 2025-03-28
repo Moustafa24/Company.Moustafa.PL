@@ -62,9 +62,14 @@ namespace Company.Moustafa.PL.Controllers
 
         public async Task<IActionResult> Search(string? SearchInput)
         {
-           
-              var  employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
-           
+
+            IEnumerable<Employee> employees;
+
+            if (string.IsNullOrEmpty(SearchInput))
+                employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
+            else
+                employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
+
 
             return View("EmployeePartialView/EmployeeTablePartialView", employees);
         }

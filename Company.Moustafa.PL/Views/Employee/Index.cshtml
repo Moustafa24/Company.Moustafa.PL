@@ -235,7 +235,7 @@
                 $.ajax({
                     url: '/Employee/Search',
                     type: 'Get',
-                    data: { Search: searchValue },
+                    data: { Search: SearchInput },
                     success: function (result) {
                         table.html(result);
                     },
