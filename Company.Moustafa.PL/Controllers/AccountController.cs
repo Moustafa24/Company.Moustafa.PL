@@ -12,11 +12,14 @@ namespace Company.Moustafa.PL.Controllers
 
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IMailService _mailService;
 
-        public AccountController(UserManager<AppUser> userManager ,SignInManager<AppUser> signInManager)
+
+        public AccountController(UserManager<AppUser> userManager ,SignInManager<AppUser> signInManager , IMailService mailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mailService = mailService;
         }
 
 
@@ -175,20 +178,16 @@ namespace Company.Moustafa.PL.Controllers
 
 
                     // Send Email 
-                    var flag = Emailsetting.SendEmail(email);
-                    if (flag)
-                    {
-                        // Check Your Inbox
-                        return RedirectToAction("CheckYourInbox");
-                        
+                    //var flag = Emailsetting.SendEmail(email);
+                    _mailService.SendEmail(email);
 
-                    }
+                    return RedirectToAction(nameof(CheckYourInbox));
 
                 }
+            ModelState.AddModelError("", "Invalid Reset Password !!");
             }
 
 
-            ModelState.AddModelError("", "Invalid Reset Password !!");
             return View("ForgetPassword" , model);
         }
 
@@ -199,7 +198,6 @@ namespace Company.Moustafa.PL.Controllers
         }
 
         #endregion
-
 
         #region Reset Password
 
@@ -241,6 +239,7 @@ namespace Company.Moustafa.PL.Controllers
 
 
         #endregion
+
 
     }
 

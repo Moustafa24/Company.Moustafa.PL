@@ -5,8 +5,10 @@ using Company.Moustafa.BLL.Repositories;
 using Company.Moustafa.DAL.Data.Context;
 using Company.Moustafa.DAL.Models;
 using Company.Moustafa.PL.Controllers;
+using Company.Moustafa.PL.Helpers;
 using Company.Moustafa.PL.Mapping;
 using Company.Moustafa.PL.Servies;
+using Company.Moustafa.PL.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +41,9 @@ namespace Company.Moustafa.PL
             //builder.Services.AddScoped();    // Create Object Life Time Per Request - Unreachable Object
             //builder.Services.AddTransient(); // Create Object Life Time Per Operation
             //builder.Services.AddSingleton(); // Create Object Life Time Per Application
+
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+            builder.Services.AddScoped<IMailService , MailServies>();
 
             builder.Services.AddScoped<IScopedService, ScopedService>(); // Per Request
             builder.Services.AddTransient<ITransientService, TransientService>(); // Per Operation
