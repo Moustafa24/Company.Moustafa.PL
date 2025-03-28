@@ -144,6 +144,15 @@ namespace Company.Moustafa.PL.Controllers
 
         #region Forget Password
 
+
+        #region Permission
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        } 
+        #endregion
+
         [HttpGet]
         public IActionResult ForgetPassword() 
         {
@@ -239,6 +248,9 @@ namespace Company.Moustafa.PL.Controllers
 
 
         #endregion
+
+
+
 
 
     }

@@ -10,7 +10,9 @@ using Company.Moustafa.PL.Mapping;
 using Company.Moustafa.PL.Servies;
 using Company.Moustafa.PL.Settings;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Company.Moustafa.PL
 {
@@ -55,10 +57,8 @@ namespace Company.Moustafa.PL
             builder.Services.ConfigureApplicationCookie(config =>
             {
                config.LoginPath = "/Account/SignIn";
-
-
-            }
-            );
+                
+            });
 
             var app = builder.Build();
 

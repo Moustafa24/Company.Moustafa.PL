@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Moustafa.PL.Controllers
 {// MVC Controller
-    [Authorize]
+    [Authorize ]
     public class DepartmentController : Controller
     {
         //private readonly IDepartmentRepository _departmentRepository;
@@ -114,6 +114,8 @@ namespace Company.Moustafa.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete([FromRoute] int id, CreateDepartmentDto model)
         {
             if (ModelState.IsValid)
